@@ -33,7 +33,7 @@ public class EuroleagueWordleApplication {
     public static void scheduledRandomPlayer () {
         Random random = new Random();
 
-        randomNum = random.nextInt(67 - 1 + 1) + 1;
+        randomNum = random.nextInt(299 - 1 + 1) + 1;
     }
 
     @Bean
