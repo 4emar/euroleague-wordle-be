@@ -4,6 +4,7 @@ import com.example.euroleaguewordle.model.Player;
 import com.example.euroleaguewordle.model.Team;
 import com.example.euroleaguewordle.model.dto.AnswerDto;
 import com.example.euroleaguewordle.model.dto.GetNamesDto;
+import com.example.euroleaguewordle.model.dto.GetPlayerDto;
 import com.example.euroleaguewordle.model.dto.SavePlayerDto;
 import com.example.euroleaguewordle.model.enums.Answer;
 import com.example.euroleaguewordle.model.exceptions.PlayerNotFoundException;
@@ -14,6 +15,8 @@ import com.example.euroleaguewordle.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +29,34 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
+
+    @Override
+    public GetPlayerDto getGuessedPlayer(Long playerId) {
+        Player player = this.playerRepository.findById(playerId)
+                .orElseThrow(() -> new PlayerNotFoundException(playerId));
+
+        LocalDate today = LocalDate.now();
+
+        if (Period.between(player.getDateOfBirth(), today).getYears() != player.getAge()) {
+            player.setAge(Period.between(player.getDateOfBirth(), today).getYears());
+            this.playerRepository.save(player);
+        }
+
+        GetPlayerDto getPlayerDto = new GetPlayerDto();
+
+        getPlayerDto.setId(player.getId());
+        getPlayerDto.setImage(player.getImage());
+        getPlayerDto.setAge(player.getAge());
+        getPlayerDto.setHeight(player.getHeight());
+        getPlayerDto.setName(player.getName());
+        getPlayerDto.setNationality(player.getNationality());
+        getPlayerDto.setPosition(player.getPosition());
+        getPlayerDto.setTeamImage(player.getTeamImage());
+        getPlayerDto.setTeamId(player.getTeamId());
+        getPlayerDto.setJerseyNumber(player.getJerseyNumber());
+
+        return getPlayerDto;
+    }
 
     @Override
     public Player findById(Long playerId) {
@@ -78,6 +109,18 @@ public class PlayerServiceImpl implements PlayerService {
         Player wordle = this.findById((long) randomNum);
         Player guess = this.playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException(playerId));
+
+        LocalDate today = LocalDate.now();
+        if (Period.between(wordle.getDateOfBirth(), today).getYears() != wordle.getAge()) {
+            wordle.setAge(Period.between(wordle.getDateOfBirth(), today).getYears());
+            this.playerRepository.save(wordle);
+        }
+
+        if (Period.between(guess.getDateOfBirth(), today).getYears() != guess.getAge()) {
+            guess.setAge(Period.between(guess.getDateOfBirth(), today).getYears());
+            this.playerRepository.save(guess);
+        }
+
 
         if (guess.equals(wordle)) {
             answerDto.setName(Answer.CORRECT);
@@ -143,7 +186,7 @@ public class PlayerServiceImpl implements PlayerService {
                     answerDto.setAge(Answer.UP);
                 else if (guess.getAge() > wordle.getAge() && guess.getAge() - wordle.getAge() <= 3)
                     answerDto.setAge(Answer.DOWN);
-                else if (guess.getAge() < wordle.getAge() && guess.getAge() - wordle.getAge() > 3)
+                else if (guess.getAge() < wordle.getAge() && wordle.getAge() - guess.getAge() > 3)
                     answerDto.setAge(Answer.WRONGUP);
                 else
                     answerDto.setAge(Answer.WRONGDOWN);

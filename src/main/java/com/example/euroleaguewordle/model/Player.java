@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
@@ -41,6 +42,9 @@ public class Player extends BaseEntity<Long> {
 
     @Column(name = "team_image")
     private String teamImage;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
     @Override
     public boolean equals(Object o) {

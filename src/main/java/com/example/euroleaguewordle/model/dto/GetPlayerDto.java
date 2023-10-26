@@ -6,17 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SavePlayerDto implements Serializable {
+public class GetPlayerDto {
+
+    private Long id;
 
     private String name;
-
-    private int age;
 
     private Position position;
 
@@ -28,7 +25,10 @@ public class SavePlayerDto implements Serializable {
 
     private String nationality;
 
+    private int age;
+
     private String image;
 
-    private LocalDate dateOfBirth;
+    private String teamImage;
+
 }

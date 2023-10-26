@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.util.List;
 import java.util.Random;
 
 @EnableScheduling
@@ -33,7 +32,7 @@ public class EuroleagueWordleApplication {
     public static void scheduledRandomPlayer () {
         Random random = new Random();
 
-        randomNum = random.nextInt(299 - 1 + 1) + 1;
+        randomNum = random.nextInt(15 - 1 + 1) + 1;
     }
 
     @Bean
