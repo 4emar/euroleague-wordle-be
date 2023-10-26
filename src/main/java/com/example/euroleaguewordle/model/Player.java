@@ -4,7 +4,6 @@ import com.example.euroleaguewordle.model.baseClass.BaseEntity;
 import com.example.euroleaguewordle.model.enums.Position;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
 

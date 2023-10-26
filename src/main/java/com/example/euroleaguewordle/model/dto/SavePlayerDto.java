@@ -1,7 +1,6 @@
 package com.example.euroleaguewordle.model.dto;
 
 import com.example.euroleaguewordle.model.enums.Position;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

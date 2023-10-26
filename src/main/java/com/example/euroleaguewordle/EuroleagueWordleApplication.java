@@ -1,8 +1,5 @@
 package com.example.euroleaguewordle;
 
-import com.example.euroleaguewordle.model.Player;
-import com.example.euroleaguewordle.repository.PlayerRepository;
-import com.example.euroleaguewordle.service.impl.PlayerServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

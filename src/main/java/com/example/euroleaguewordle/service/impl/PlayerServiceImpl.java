@@ -70,19 +70,6 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player save(Player player) {
-        return this.playerRepository.save(player);
-    }
-
-    @Override
-    public Player deleteById(Long playerId) {
-        Player deletePlayer = this.playerRepository.findById(playerId)
-                .orElseThrow(() -> new PlayerNotFoundException(playerId));
-        this.playerRepository.deleteById(deletePlayer.getId());
-        return deletePlayer;
-    }
-
-    @Override
     public Player add(SavePlayerDto savePlayerDto) {
         Player addPlayer = new Player();
 
